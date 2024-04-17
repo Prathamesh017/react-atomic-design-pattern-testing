@@ -15,7 +15,6 @@ const onChange=(event: React.ChangeEvent<HTMLInputElement>)=>{
 function Login() {
   const {loginUser,getOperations,handleOperations}=useAuth();
   const onLogin=(data:UserLogin) => {
-    handleOperations("isError",false);
     handleOperations("isLoading",true)
     loginUser(data);
   }

@@ -13,7 +13,6 @@ const data:UserRegister={
 function Register(){
   const {registerUser,getOperations,handleOperations}=useAuth();
   const onRegister=(data:UserRegister) => {
-    handleOperations("isError",false);
     handleOperations("isLoading",true)
     registerUser(data);
   }
