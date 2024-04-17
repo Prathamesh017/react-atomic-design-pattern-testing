@@ -1,10 +1,11 @@
-import DashboardTable from 'common/components/molecules/DashboardTable'
+
+import Login from 'pages/Login'
 import React from 'react'
 
 const App = () => {
   return (
     <div className="App">
-      <DashboardTable />
+    <Login></Login>
     </div>
   )
 }

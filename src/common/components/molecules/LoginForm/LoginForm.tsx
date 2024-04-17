@@ -6,15 +6,12 @@ import Text from 'common/components/atoms/Text'
 import { Anchor } from '@mantine/core'
 import { useForm } from '@mantine/form'
 
-const LoginForm = ({ onSubmit }: LoginFormProps) => {
+const LoginForm = ({ data,onSubmit }: LoginFormProps) => {
   const form = useForm({
-    initialValues: {
-      password: '',
-      email: '',
-    },
-
+    initialValues: data,
     validate: {
-      // email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      password:(value)=>value.length < 1 ? 'Password is empty' : null
     },
   })
 
@@ -24,15 +21,16 @@ const LoginForm = ({ onSubmit }: LoginFormProps) => {
       onSubmit={form.onSubmit(() => {
         onSubmit(form.values)
       })}
+  
     >
       <Input
-        placeholder={'placeholder'}
+        placeholder={'enter email'}
         label={'Username'}
         type={'text'}
         {...form.getInputProps('email')}
       />
       <Input
-        placeholder={'placeholder'}
+        placeholder={'enter password'}
         label={'Password'}
         type={'password'}
         {...form.getInputProps('password')}
