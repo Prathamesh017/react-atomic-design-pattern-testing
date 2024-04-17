@@ -7,6 +7,8 @@ interface LoginSectionProps {
   data: UserLogin
   isError:boolean
   isLoading:boolean
+  isCompleted:boolean,
   onChange: React.ChangeEventHandler<HTMLInputElement>
   onLogin: (data: UserLogin) => void
 }
+

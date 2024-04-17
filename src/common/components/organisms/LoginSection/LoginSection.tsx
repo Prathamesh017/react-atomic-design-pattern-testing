@@ -2,16 +2,17 @@ import React from 'react'
 import LoginForm from 'common/components/molecules/LoginForm'
 import { Title } from '@mantine/core'
 import './LoginSection.scss'
-import Spinner from 'common/components/atoms/Spinner'
-import Text from 'common/components/atoms/Text'
+import FormResult from 'common/components/molecules/FormResult/FormResult'
+
 
 const LoginSection = ({
   title,
   data,
   onChange,
   onLogin,
-  isLoading=false,
-  isError=false
+  isCompleted,
+  isLoading,
+  isError
 }: LoginSectionProps) => {
   return (
     <section className="login-section">
@@ -19,17 +20,7 @@ const LoginSection = ({
         {title}
       </Title>
       <LoginForm data={data} onChange={onChange} onSubmit={onLogin} />
-      {isLoading &&
-      <div className='loading-spinner'>
-        <Spinner ></Spinner>
-      </div> 
-        }
-      {isError && 
-      <Text ta={'center'} color="red.5" mt={22} fw={700} fz={'lg'}>
-      Error on Login
-    </Text>
-}
-    
+      <FormResult isCompleted={isCompleted} isLoading={isLoading} isError={isError} errorMsg={"Error on Login"}></FormResult>  
     </section>
   )
 }

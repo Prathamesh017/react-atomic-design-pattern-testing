@@ -23,7 +23,7 @@ function Login() {
   return (
     <>
     <FormLayout>
-      <LoginSection title={title} data={data} onChange={onChange} onLogin={onLogin} isLoading={operation.isLoading} isError={operation.isError}></LoginSection>
+      <LoginSection isCompleted={operation.isCompleted} title={title} data={data} onChange={onChange} onLogin={onLogin} isLoading={operation.isLoading} isError={operation.isError}></LoginSection>
     </FormLayout>
     </>
   )

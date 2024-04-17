@@ -1,13 +1,23 @@
 
-import Login from 'pages/Login'
+import { Register,Login} from 'pages';
 import React from 'react'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Register/>
+  },
+  {
+    path: "/login",
+    element: <Login></Login>,
+  },
+]);
 const App = () => {
-  return (
-    <div className="App">
-    <Login></Login>
-    </div>
-  )
+  return<RouterProvider router={router} />
 }
 
 export default App
