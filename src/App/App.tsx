@@ -1,5 +1,5 @@
 
-import { Register,Login} from 'pages';
+import { Register,Login, ForgetPassword} from 'pages';
 import React from 'react'
 import {
   createBrowserRouter,
@@ -14,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login></Login>,
+  },
+  {
+    path: "/forget-password",
+    element: <ForgetPassword/>
   },
 ]);
 const App = () => {
