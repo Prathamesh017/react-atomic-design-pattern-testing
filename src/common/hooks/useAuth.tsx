@@ -1,4 +1,3 @@
-import { useTimeout } from '@mantine/hooks'
 import axios from 'axios'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -24,6 +23,9 @@ function useAuth() {
         )
       }
       handleOperations('isCompleted', true)
+      setTimeout(() => {
+        navigate('/list')
+      }, 3000)
     } catch (error) {
       handleOperations('isError', true)
     }
@@ -32,7 +34,7 @@ function useAuth() {
     try {
       await axios.post(`${url}/api/auth/register`, data)
       handleOperations('isCompleted', true)
-      useTimeout(() => {
+      setTimeout(() => {
         navigate('/login')
       }, 3000)
     } catch (error) {
@@ -43,6 +45,19 @@ function useAuth() {
   const handleOperations = (operationName: string, isOperation: boolean) => {
     const newOperations = { ...operations, [operationName]: isOperation }
     setOperations(newOperations)
+  }
+
+  const resetPassword = async (data: changePasswordProps) => {
+    try {
+      const token = getAccessToken()
+      await axios.put(`${url}/api/auth/password/reset`, {
+        password: data.newPassword,
+        tokenId: token,
+      })
+      handleOperations('isCompleted', true)
+    } catch (error) {
+      handleOperations('isError', true)
+    }
   }
   const getOperations = () => {
     return operations
@@ -57,11 +72,35 @@ function useAuth() {
     }
   }
 
+  const logout=async()=>{
+    try {
+      const token = getAccessToken();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      await axios.put(`${url}/api/auth/logout`,{},config);
+      handleOperations('isCompleted', true)
+      handleNavigation("/")
+    } catch (error) {
+      handleOperations('isError', true)
+    }
+  }
+
   const handleNavigation = (route: string) => {
     navigate(route)
   }
+  const getAccessToken = () => {
+    const accessToken = JSON.parse(
+      localStorage.getItem('access-token') as string
+    )
+    return accessToken
+  }
   return {
+    resetPassword,
     forgetPassword,
+    logout,
     handleNavigation,
     registerUser,
     loginUser,

@@ -16,7 +16,7 @@ const FormResult=({ isLoading,isError,errorMsg,isCompleted}: FormResultOptions) 
     </Text>}
   {isCompleted && 
     <Text ta={'center'} color="green.5" mt={22} fw={700} fz={'lg'}>
-     Submission Successfull
+     Successfull
     </Text>}
     </>
   }

@@ -5,7 +5,7 @@ import '../LoginForm/LoginForm.scss'
 import { useForm } from '@mantine/form'
 
 
-const passwordRegex = /^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/;
+export const passwordRegex = /^(?=(.*[a-z]){1,})(?=(.*[A-Z]){1,})(?=(.*[0-9]){1,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/;
 const emailRegex=/^\S+@\S+$/;
 const RegisterForm = ({ data,onSubmit }: RegisterFormProps) => {
   const form = useForm({

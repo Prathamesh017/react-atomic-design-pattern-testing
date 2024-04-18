@@ -4,6 +4,5 @@ interface changePasswordProps {
 }
 interface ChangePasswordFormProps {
   data: changePasswordProps
-  onChange: React.ChangeEventHandler<HTMLInputElement>
-  onSubmit: () => void
+  onSubmit: (data:changePasswordProps) => void
 }

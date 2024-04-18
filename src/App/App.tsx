@@ -1,25 +1,13 @@
 
-import { Register,Login, ForgetPassword} from 'pages';
 import React from 'react'
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { AppRoutes } from 'common/routes';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Register/>
-  },
-  {
-    path: "/login",
-    element: <Login></Login>,
-  },
-  {
-    path: "/forget-password",
-    element: <ForgetPassword/>
-  },
-]);
+const routes=AppRoutes();
+const router = createBrowserRouter(routes);
 const App = () => {
   return<RouterProvider router={router} />
 }

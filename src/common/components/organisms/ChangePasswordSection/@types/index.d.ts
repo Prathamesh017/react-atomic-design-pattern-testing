@@ -4,7 +4,9 @@ interface changePasswordProps {
 }
 interface ChangePasswordSectionProps {
   title: string
+  isError:boolean
+  isLoading:boolean
+  isCompleted:boolean
   data: changePasswordProps
-  onChange: React.ChangeEventHandler<HTMLInputElement>
-  onSubmit: () => void
+  onSubmit: (data:changePasswordProps) => void
 }
