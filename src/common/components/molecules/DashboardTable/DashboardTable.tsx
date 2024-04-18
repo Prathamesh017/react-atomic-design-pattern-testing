@@ -3,27 +3,10 @@ import { createColumnHelper } from '@tanstack/react-table'
 import Table from 'common/components/atoms/Table'
 
 
+interface DashBoardProps{
+  data:Person[] 
+}
 
-const defaultData: Person[] = [
-  {
-    passengerName: 'Sherwin',
-    airlineName: 'Sri Lanka',
-    trips: 59,
-    airlineHeadQuaters: 'Katunayake, Sri Lanka',
-  },
-  {
-    passengerName: 'Sherwin',
-    airlineName: 'Sri Lanka',
-    trips: 59,
-    airlineHeadQuaters: 'Katunayake, Sri Lanka',
-  },
-  {
-    passengerName: 'Sherwin',
-    airlineName: 'Sri Lanka',
-    trips: 59,
-    airlineHeadQuaters: 'Katunayake, Sri Lanka',
-  },
-]
 
 const columnHelper = createColumnHelper<Person>()
 
@@ -47,11 +30,12 @@ const columns = [
   }),
 
 ]
-const DashboardTable = () => {
+const DashboardTable = (props:DashBoardProps) => {
+  const personData=props.data
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [data, setData] = React.useState(() => [...defaultData])
 
-  return <>{data && <Table data={data} columns={columns} />}</>
+
+  return <>{personData && <Table data={personData} columns={columns} />}</>
 }
 
 export default DashboardTable

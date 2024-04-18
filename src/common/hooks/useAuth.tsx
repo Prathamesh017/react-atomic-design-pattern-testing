@@ -87,6 +87,53 @@ function useAuth() {
       handleOperations('isError', true)
     }
   }
+  const fetchData = async () => {
+    try {
+      const token = getAccessToken()
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const data = await axios.get(`${url}/api/lists?page=0&size=1`, config)
+      return data
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err:any) {
+      if (err.response.status === 500) {
+        const refreshToken = JSON.parse(
+        localStorage.getItem('refresh-token') as string
+      )
+      if (!refreshToken) {
+        return;
+      }
+        await updateAccessToken(refreshToken)
+        await fetchData()
+      }
+    }
+  }
+  const updateAccessToken = async (refreshToken:string) => {
+    try {
+     const data = {
+        refreshToken,
+      }
+      const tokens = await axios.post(`${url}/api/auth/refresh`, data)
+      if (tokens) {
+        localStorage.setItem(
+          'access-token',
+          JSON.stringify(tokens.data.accessToken)
+        )
+        localStorage.setItem(
+          'refresh-token',
+          JSON.stringify(tokens.data.refreshToken)
+        )
+      }
+      return;
+    } catch (error) {
+      console.log(error)
+      localStorage.clear()
+      handleNavigation('/')
+    }
+  }
 
   const handleNavigation = (route: string) => {
     navigate(route)
@@ -98,6 +145,7 @@ function useAuth() {
     return accessToken
   }
   return {
+    fetchData,
     resetPassword,
     forgetPassword,
     logout,
