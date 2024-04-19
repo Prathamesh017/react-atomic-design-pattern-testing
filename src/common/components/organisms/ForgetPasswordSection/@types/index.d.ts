@@ -7,6 +7,7 @@ interface ForgetFormProps {
   isError:boolean
   isLoading:boolean
   isCompleted:boolean,
+  errorMsg:string
   onChange: React.ChangeEventHandler<HTMLInputElement>
   onSubmit: (data:UserForgetPassword) => void
 }

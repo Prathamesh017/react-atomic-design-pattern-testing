@@ -9,17 +9,19 @@ function ResetPassword() {
       oldPassword:"",
       newPassword:""
     }
-    const { resetPassword, handleOperations, getOperations } = useAuth()
+    const { resetPassword, handleOperations, getOperations,getErrorMsg} = useAuth()
     const onSubmit = (data:changePasswordProps) => {
       handleOperations('isLoading', true)
       resetPassword(data)
     }
     const operation = getOperations()
+    const errorMsg=getErrorMsg();
     return (
       <>
       <FormLayout>
         <ChangePasswordSection title={title} data={data}
         onSubmit={onSubmit}
+        errorMsg={errorMsg}
         isCompleted={operation.isCompleted}
         isLoading={operation.isLoading}
         isError={operation.isError} 

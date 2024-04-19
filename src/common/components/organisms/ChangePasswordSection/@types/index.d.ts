@@ -7,6 +7,7 @@ interface ChangePasswordSectionProps {
   isError:boolean
   isLoading:boolean
   isCompleted:boolean
+  errorMsg:string
   data: changePasswordProps
   onSubmit: (data:changePasswordProps) => void
 }

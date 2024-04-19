@@ -13,9 +13,11 @@ const LoginSection = ({
   onLogin,
   isCompleted,
   isLoading,
+  errorMsg,
   isError
 }: LoginSectionProps) => {
   const {handleNavigation}=useAuth();
+ 
 
   return (
     <section className="login-section">
@@ -23,7 +25,7 @@ const LoginSection = ({
         {title}
       </Title>
       <LoginForm data={data} onChange={onChange} onSubmit={onLogin} />
-      <FormResult isCompleted={isCompleted} isLoading={isLoading} isError={isError} errorMsg={"Error on Login"}></FormResult>
+      <FormResult isCompleted={isCompleted} isLoading={isLoading} isError={isError} errorMsg={errorMsg}></FormResult>
       <div className="button-wrapper">
         <Button fullWidth type="submit" mt={20} mb={10} onClick={()=>{handleNavigation("/")}}>
           Register

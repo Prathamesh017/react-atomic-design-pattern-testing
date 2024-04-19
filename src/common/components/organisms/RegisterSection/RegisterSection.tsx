@@ -10,6 +10,7 @@ const RegisterSection = ({
   onRegister,
   isLoading,
   isError,
+  errorMsg,
   isCompleted
 }: RegisterSectionProps) => {
   const {handleNavigation}=useAuth();
@@ -19,7 +20,7 @@ const RegisterSection = ({
         {title}
       </Title>
       <RegisterForm data={data}  onSubmit={onRegister} />
-      <FormResult isCompleted={isCompleted} isLoading={isLoading} isError={isError} errorMsg={"Error on Register"}></FormResult>
+      <FormResult isCompleted={isCompleted} isLoading={isLoading} isError={isError} errorMsg={errorMsg}></FormResult>
       <div className="button-wrapper">
         <Button fullWidth type="submit" mt={20} mb={10} onClick={()=>{handleNavigation("/login")}}>
           Login

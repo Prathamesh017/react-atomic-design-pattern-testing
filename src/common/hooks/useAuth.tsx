@@ -3,13 +3,14 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 const url = process.env.REACT_APP_API_URL
 function useAuth() {
-  const navigate=useNavigate();
+  const navigate = useNavigate()
   const [operations, setOperations] = useState({
     isLoading: false,
     isError: false,
     isCompleted: false,
   })
-  const loginUser = async (data:UserLogin) => {
+  const [errorMsg, setErrorMsg] = useState('')
+  const loginUser = async (data: UserLogin) => {
     try {
       const tokens = await axios.put(`${url}/api/auth/login`, data)
       if (tokens) {
@@ -27,6 +28,12 @@ function useAuth() {
         navigate('/list')
       }, 3000)
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setErrorMsg(error?.response?.data?.errorMessage)
+        console.log(errorMsg);
+      } else {
+        setErrorMsg("Couldn't login user,Try Again")
+      }
       handleOperations('isError', true)
     }
   }
@@ -37,7 +44,14 @@ function useAuth() {
       setTimeout(() => {
         navigate('/login')
       }, 3000)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setErrorMsg(error?.response?.data?.errorMessage)
+        console.log(errorMsg);
+      } else {
+        setErrorMsg("Couldn't register user,Try Again")
+      }
       handleOperations('isError', true)
     }
   }
@@ -56,6 +70,12 @@ function useAuth() {
       })
       handleOperations('isCompleted', true)
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setErrorMsg(error?.response?.data?.errorMessage)
+        console.log(errorMsg);
+      } else {
+        setErrorMsg("Password Reset Failed")
+      }
       handleOperations('isError', true)
     }
   }
@@ -68,21 +88,27 @@ function useAuth() {
       await axios.put(`${url}/api/auth/password/forgot`, data)
       handleOperations('isCompleted', true)
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setErrorMsg(error?.response?.data?.errorMessage)
+        console.log(errorMsg);
+      } else {
+        setErrorMsg("'Reset Email Failed,Please Try Again.'")
+      }
       handleOperations('isError', true)
     }
   }
 
-  const logout=async()=>{
+  const logout = async () => {
     try {
-      const token = getAccessToken();
+      const token = getAccessToken()
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
-      await axios.put(`${url}/api/auth/logout`,{},config);
+      await axios.put(`${url}/api/auth/logout`, {}, config)
       handleOperations('isCompleted', true)
-      handleNavigation("/")
+      handleNavigation('/')
     } catch (error) {
       handleOperations('isError', true)
     }
@@ -101,19 +127,19 @@ function useAuth() {
     } catch (err:any) {
       if (err.response.status === 500) {
         const refreshToken = JSON.parse(
-        localStorage.getItem('refresh-token') as string
-      )
-      if (!refreshToken) {
-        return;
-      }
+          localStorage.getItem('refresh-token') as string
+        )
+        if (!refreshToken) {
+          return
+        }
         await updateAccessToken(refreshToken)
         await fetchData()
       }
     }
   }
-  const updateAccessToken = async (refreshToken:string) => {
+  const updateAccessToken = async (refreshToken: string) => {
     try {
-     const data = {
+      const data = {
         refreshToken,
       }
       const tokens = await axios.post(`${url}/api/auth/refresh`, data)
@@ -127,7 +153,7 @@ function useAuth() {
           JSON.stringify(tokens.data.refreshToken)
         )
       }
-      return;
+      return
     } catch (error) {
       console.log(error)
       localStorage.clear()
@@ -144,7 +170,12 @@ function useAuth() {
     )
     return accessToken
   }
+
+  const getErrorMsg = () => {
+    return errorMsg
+  }
   return {
+    getErrorMsg,
     fetchData,
     resetPassword,
     forgetPassword,

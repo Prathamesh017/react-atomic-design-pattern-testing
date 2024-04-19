@@ -11,16 +11,17 @@ const data:UserRegister={
   phone:"",
 }
 function Register(){
-  const {registerUser,getOperations,handleOperations}=useAuth();
+  const {registerUser,getOperations,handleOperations,getErrorMsg}=useAuth();
   const onRegister=(data:UserRegister) => {
     handleOperations("isLoading",true)
     registerUser(data);
   }
   const operation=getOperations();  
+  const errorMsg=getErrorMsg(); 
   return (
     <>
     <FormLayout>
-      <RegisterSection isCompleted={operation.isCompleted} title={title} data={data}  onRegister={onRegister} isLoading={operation.isLoading} isError={operation.isError}></RegisterSection>
+      <RegisterSection isCompleted={operation.isCompleted} title={title} data={data}  onRegister={onRegister} isLoading={operation.isLoading} errorMsg={errorMsg} isError={operation.isError}></RegisterSection>
     </FormLayout>
     </>
   )

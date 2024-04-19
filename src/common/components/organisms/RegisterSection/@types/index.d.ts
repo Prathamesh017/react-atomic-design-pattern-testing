@@ -4,6 +4,7 @@ interface RegisterSectionProps{
   data:  UserRegister 
   isError:boolean
   isLoading:boolean
+  errorMsg:string
   isCompleted:boolean
   onRegister: (data:  UserRegister) => void
 }

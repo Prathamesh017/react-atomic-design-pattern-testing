@@ -9,6 +9,7 @@ const ChangePasswordSection = ({
   onSubmit,
   isError,
   isLoading,
+  errorMsg,
   isCompleted,
 }: ChangePasswordSectionProps) => {
   return (
@@ -24,7 +25,7 @@ const ChangePasswordSection = ({
         isCompleted={isCompleted}
         isLoading={isLoading}
         isError={isError}
-        errorMsg={'Password Reset Failed'}
+        errorMsg={errorMsg}
       ></FormResult>
     </section>
   )

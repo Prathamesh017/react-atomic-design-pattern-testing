@@ -2,7 +2,6 @@ import React from 'react'
 import Button from 'common/components/atoms/Button'
 import Input from 'common/components/atoms/Input'
 import { Title, Anchor, Text } from '@mantine/core'
-
 import './ForgetPasswordSection.scss'
 import { useForm } from '@mantine/form'
 import FormResult from 'common/components/molecules/FormResult/FormResult'
@@ -12,6 +11,7 @@ const ForgetPasswordSection = ({
   data,
   isError,
   isLoading,
+  errorMsg,
   isCompleted,
 }: ForgetFormProps) => {
   const form = useForm({
@@ -60,7 +60,7 @@ const ForgetPasswordSection = ({
         isCompleted={isCompleted}
         isLoading={isLoading}
         isError={isError}
-        errorMsg={'Reset Email Failed,Please Try Again.'}
+        errorMsg={errorMsg}
       ></FormResult>
     </div>
   )

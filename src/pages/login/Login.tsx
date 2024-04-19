@@ -13,16 +13,17 @@ const onChange=(event: React.ChangeEvent<HTMLInputElement>)=>{
 }
 
 function Login() {
-  const {loginUser,getOperations,handleOperations}=useAuth();
+  const {loginUser,getOperations,handleOperations,getErrorMsg}=useAuth();
   const onLogin=(data:UserLogin) => {
     handleOperations("isLoading",true)
     loginUser(data);
   }
+  const errorMsg=getErrorMsg(); 
   const operation=getOperations();  
   return (
     <>
     <FormLayout>
-      <LoginSection isCompleted={operation.isCompleted} title={title} data={data} onChange={onChange} onLogin={onLogin} isLoading={operation.isLoading} isError={operation.isError}></LoginSection>
+      <LoginSection errorMsg={errorMsg} isCompleted={operation.isCompleted} title={title} data={data} onChange={onChange} onLogin={onLogin} isLoading={operation.isLoading} isError={operation.isError}></LoginSection>
     </FormLayout>
     </>
   )

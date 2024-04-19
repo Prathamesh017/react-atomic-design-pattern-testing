@@ -11,18 +11,20 @@ const data: UserForgetPassword = {
   email: '',
 }
 function ForgetPassword() {
-  const { forgetPassword, handleOperations, getOperations } = useAuth()
+  const { forgetPassword, handleOperations, getOperations ,getErrorMsg} = useAuth()
   const onSubmit = (data: UserForgetPassword) => {
     handleOperations('isLoading', true)
     forgetPassword(data)
   }
   const operation = getOperations()
+  const errorMsg=getErrorMsg();
   return (
     <>
       <FormLayout>
         <ForgetPasswordSection
           data={data}
           onChange={onChange}
+          errorMsg={errorMsg}
           onSubmit={onSubmit}
           isCompleted={operation.isCompleted}
           isLoading={operation.isLoading}
